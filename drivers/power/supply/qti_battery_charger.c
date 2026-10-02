@@ -2719,6 +2719,12 @@ static ssize_t night_charging_store(struct class *c,
 	if (rc < 0)
 		return rc;
 
+	/* FW night mode only holds at its own SOC and leaves trickle; hard-suspend input */
+	rc = write_property_id(bcdev, &bcdev->psy_list[PSY_TYPE_XM],
+				XM_PROP_INPUT_SUSPEND, val);
+	if (rc < 0)
+		return rc;
+
 	return count;
 }
 
