@@ -11,6 +11,8 @@
 # Normal rules (sorted alphabetically)
 #
 .*
+!.github
+!.gitignore
 *.a
 *.asn1.[ch]
 *.bin
