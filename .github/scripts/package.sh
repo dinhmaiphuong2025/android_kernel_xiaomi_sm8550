@@ -31,7 +31,7 @@ rm -rf "${ANYKERNEL_DIR}/.git"
 cp "${IMAGE_PATH}" "${ANYKERNEL_DIR}/Image"
 
 # Custom branding in anykernel.sh
-KERNEL_TAG="ReSukiSU"
+KERNEL_TAG="BakaSU"
 if [ -n "${CUSTOM_KERNEL_NAME}" ]; then
     CLEAN_NAME="${CUSTOM_KERNEL_NAME#-}"
     KERNEL_TAG="${CLEAN_NAME}"
@@ -54,12 +54,12 @@ if [ -n "${BOOT_IMG_URL}" ]; then
     curl -sL --fail -o "${DIST_DIR}/ksud" \
         "https://github.com/KernelSU-Next/KernelSU-Next/releases/download/${KSUD_VERSION}/ksud-x86_64-unknown-linux-musl"
     chmod +x "${DIST_DIR}/ksud"
-    echo "Patching boot image with ReSukiSU kernel..."
+    echo "Patching boot image with BakaSU kernel..."
     "${DIST_DIR}/ksud" boot-patch \
         --boot "${DIST_DIR}/stock-boot.img" \
         --kernel "${IMAGE_PATH}" \
         --out "${DIST_DIR}" \
-        --out-name ReSukiSU-boot.img
+        --out-name BakaSU-boot.img
     rm -f "${DIST_DIR}/stock-boot.img" "${DIST_DIR}/ksud"
-    echo "ReSukiSU-boot.img created successfully."
+    echo "BakaSU-boot.img created successfully."
 fi

@@ -16,8 +16,12 @@ export PATH="${CLANG_DIR}/bin:${PATH}"
 cd "${KERNEL_DIR}"
 
 if [ "${USE_DROIDSPACES}" = "true" ]; then
-    echo "DroidSpaces enabled: applying kABI patch + config fragment"
+    echo "DroidSpaces enabled: applying kABI patches + config fragment"
     git apply --whitespace=nowarn .github/droidspaces/001.GKI-below-6.12-fix_sysvipc_kabi.patch
+    if [ -f ".github/droidspaces/002.fix_cgroup_limits_kabi_5.15.167.patch" ]; then
+        echo "Applying cgroup/sched limits kABI fix patch"
+        git apply --whitespace=nowarn .github/droidspaces/002.fix_cgroup_limits_kabi_5.15.167.patch
+    fi
 fi
 
 DEFCONFIGS=(arch/arm64/configs/gki_defconfig)
@@ -38,10 +42,10 @@ KCONFIG_CONFIG="${KERNEL_DIR}/out/.config" \
 printf '\n' >> out/.config
 ./scripts/config --file out/.config -e KSU
 if [ "${USE_SUSFS}" = "true" ]; then
-    echo "Enabling ReSukiSU SuSFS inline hook"
+    echo "Enabling BakaSU SuSFS inline hook"
     ./scripts/config --file out/.config -e KSU_SUSFS
 else
-    echo "Enabling ReSukiSU tracepoint hook"
+    echo "Enabling BakaSU tracepoint hook"
     ./scripts/config --file out/.config -e KSU_TRACEPOINT_HOOK
 fi
 ./scripts/config --file out/.config -e LTO_CLANG_THIN -d LTO_CLANG_FULL

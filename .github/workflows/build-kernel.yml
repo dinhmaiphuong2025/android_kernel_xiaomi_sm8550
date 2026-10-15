@@ -12,19 +12,19 @@ on:
         required: false
         default: kalama
       custom_kernel_name:
-        description: Custom kernel name (optional suffix, e.g. ReSukiSU or -custom)
+        description: Custom kernel name (optional suffix, e.g. BakaSU or -custom)
         required: false
         default: ""
       boot_img_url:
-        description: URL of the current boot.img to patch into ReSukiSU boot.img (optional)
+        description: URL of the current boot.img to patch into BakaSU boot.img (optional)
         required: false
       use_droidspaces:
         description: Enable DroidSpaces container runtime kernel config
         required: false
         default: true
         type: boolean
-      resukisu_ref:
-        description: ReSukiSU branch or tag (default main)
+      bakasu_ref:
+        description: BakaSU branch or tag (default main)
         required: false
         default: main
   push:
@@ -45,8 +45,8 @@ jobs:
           sudo apt-get update
           sudo apt-get install -y bc bison flex libssl-dev libelf-dev dwarves cpio python3 zip
 
-      - name: Setup ReSukiSU
-        run: bash .github/scripts/setup-resukisu.sh "${{ inputs.resukisu_ref || 'main' }}"
+      - name: Setup BakaSU
+        run: bash .github/scripts/setup-bakasu.sh "${{ inputs.bakasu_ref || 'main' }}"
 
       - name: Download clang toolchain
         run: |
@@ -83,4 +83,4 @@ jobs:
           path: |
             dist/AnyKernel3-*.zip
             dist/config
-            dist/ReSukiSU-boot.img
+            dist/BakaSU-boot.img
