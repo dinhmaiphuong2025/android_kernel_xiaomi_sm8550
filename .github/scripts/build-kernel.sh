@@ -16,12 +16,8 @@ export PATH="${CLANG_DIR}/bin:${PATH}"
 cd "${KERNEL_DIR}"
 
 if [ "${USE_DROIDSPACES}" = "true" ]; then
-    echo "DroidSpaces enabled: applying kABI patches + config fragment"
+    echo "DroidSpaces enabled: applying kABI patch + config fragment"
     git apply --whitespace=nowarn .github/droidspaces/001.GKI-below-6.12-fix_sysvipc_kabi.patch
-    if [ -f ".github/droidspaces/002.fix_cgroup_limits_kabi_5.15.167.patch" ]; then
-        echo "Applying cgroup/sched limits kABI fix patch"
-        git apply --whitespace=nowarn .github/droidspaces/002.fix_cgroup_limits_kabi_5.15.167.patch
-    fi
 fi
 
 DEFCONFIGS=(arch/arm64/configs/gki_defconfig)
