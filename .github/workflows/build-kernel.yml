@@ -24,9 +24,9 @@ on:
         default: true
         type: boolean
       bakasu_ref:
-        description: BakaSU branch or tag (default main)
+        description: BakaSU branch or commit ref (default stable 5b76b884)
         required: false
-        default: main
+        default: 5b76b884c75f729a220bb317aa4a4fc78f0e0e9c
   push:
     branches: ['16.0']
 
@@ -46,7 +46,7 @@ jobs:
           sudo apt-get install -y bc bison flex libssl-dev libelf-dev dwarves cpio python3 zip
 
       - name: Setup BakaSU
-        run: bash .github/scripts/setup-bakasu.sh "${{ inputs.bakasu_ref || 'main' }}"
+        run: bash .github/scripts/setup-bakasu.sh "${{ inputs.bakasu_ref || '5b76b884c75f729a220bb317aa4a4fc78f0e0e9c' }}"
 
       - name: Download clang toolchain
         run: |
